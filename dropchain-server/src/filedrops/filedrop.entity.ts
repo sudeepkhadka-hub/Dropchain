@@ -8,26 +8,26 @@ import {
 @Entity()
 export class FileDrop {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id!: string;
 
   @Column()
-  filename: string;
+  filename!: string;
 
   @Column()
-  s3Url: string;
+  s3Url!: string;
 
   @Column({ nullable: true })
-  password: string;
+  password?: string;
 
   @Column({ default: 1 })
-  maxViews: number;
+  maxViews!: number;
 
   @Column({ default: 0 })
-  currentViews: number;
+  currentViews!: number;
 
-  @Column()
-  expiresAt: Date;
+  @Column({ type: 'timestamp' })
+  expiresAt!: Date;
 
   @CreateDateColumn()
-  createdAt: Date;
+  createdAt!: Date;
 }
