@@ -8,6 +8,7 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import { FiledropsService } from './filedrops.service';
 import { CreateFileDropDto } from './filedropDTO/filedrop.dto';
+import { Get, Param } from '@nestjs/common';
 
 @Controller('filedrops')
 export class FiledropsController {
@@ -20,4 +21,11 @@ export class FiledropsController {
   ) {
     return this.filedropsService.create(file, body);
   }
+
+
+  @Get(':id')
+  getFileDrop(@Param('id') id: string) {
+    return this.filedropsService.findOne(id);
+  }
+
 }

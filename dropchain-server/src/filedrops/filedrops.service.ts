@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { FileDrop } from './filedrop.entity';
 import { CreateFileDropDto } from './filedropDTO/filedrop.dto';
 import { Express } from 'express'; // ← Add this
+import { NotFoundException } from '@nestjs/common';
 
 @Injectable()
 export class FiledropsService {
@@ -32,4 +33,16 @@ export class FiledropsService {
 
     return this.repo.save(newDrop);
   }
+
+  async findOne(id: string) {
+  const filedrop = await this.repo.findOne({
+    where: { id },
+  });
+
+  if (!filedrop) {
+    throw new NotFoundException('FileDrop not found');
+  }
+
+  return filedrop;
+}
 }
