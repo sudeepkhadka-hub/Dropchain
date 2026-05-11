@@ -5,6 +5,7 @@ import { FileDrop } from './filedrop.entity';
 import { CreateFileDropDto } from './filedropDTO/filedrop.dto';
 import { Express } from 'express'; // ← Add this
 import { NotFoundException } from '@nestjs/common';
+import { UpdateFileDropDto } from './filedropDTO/update-filedrop.dto';
 
 @Injectable()
 export class FiledropsService {
@@ -63,5 +64,16 @@ export class FiledropsService {
   }
 
 
+  async update(id: string, body: UpdateFileDropDto) {
+    const filedrop = await this.repo.findOne({
+      where: { id },
+    });
 
+    if (!filedrop) {
+      throw new NotFoundException('FileDrop not found');
+    }
+
+    Object.assign(filedrop, body);
+    return this.repo.save(filedrop);
+  }
 }

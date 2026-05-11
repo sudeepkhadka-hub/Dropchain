@@ -10,8 +10,8 @@ import { FiledropsService } from './filedrops.service';
 import { CreateFileDropDto } from './filedropDTO/filedrop.dto';
 import { Get, Param } from '@nestjs/common';
 import { Delete } from '@nestjs/common';
-
-
+import { Patch } from '@nestjs/common';
+import { UpdateFileDropDto } from './filedropDTO/update-filedrop.dto';
 
 
 @Controller('filedrops')
@@ -42,4 +42,13 @@ export class FiledropsController {
   deleteFileDrop(@Param('id') id: string) {
     return this.filedropsService.delete(id);
   }
+
+
+  @Patch(':id')
+  updateFileDrop(
+  @Param('id') id: string,
+  @Body() body: UpdateFileDropDto,
+) {
+  return this.filedropsService.update(id, body);
+}
 }
