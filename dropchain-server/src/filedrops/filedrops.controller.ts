@@ -9,6 +9,8 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { FiledropsService } from './filedrops.service';
 import { CreateFileDropDto } from './filedropDTO/filedrop.dto';
 import { Get, Param } from '@nestjs/common';
+import { Delete } from '@nestjs/common';
+
 
 
 
@@ -33,7 +35,11 @@ export class FiledropsController {
 
   @Get()
   getAll() {
-    return  this.filedropsService.findAll();
+    return this.filedropsService.findall();
 }
 
+  @Delete(':id')
+  deleteFileDrop(@Param('id') id: string) {
+    return this.filedropsService.delete(id);
+  }
 }

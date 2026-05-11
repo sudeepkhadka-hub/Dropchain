@@ -44,14 +44,24 @@ export class FiledropsService {
   }
 
   return filedrop;
-}
+};
 
-  async findAll() {
+  async findall() {
     return this.repo.find({
       order: {
         createdAt: 'DESC',
       },
     });
+  };
+
+  async delete(id: string) {
+    const result = await this.repo.delete(id);
+    if (result.affected === 0) {
+      throw new NotFoundException('FileDrop not found');
+    }
+    return { message: 'FileDrop deleted successfully' };
   }
+
+
 
 }
