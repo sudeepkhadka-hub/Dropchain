@@ -40,9 +40,18 @@ export class FiledropsService {
   });
 
   if (!filedrop) {
-    throw new NotFoundException('FileDrop not found');
+  throw new NotFoundException('FileDrop not found');
   }
 
   return filedrop;
 }
+
+  async findAll() {
+    return this.repo.find({
+      order: {
+        createdAt: 'DESC',
+      },
+    });
+  }
+
 }

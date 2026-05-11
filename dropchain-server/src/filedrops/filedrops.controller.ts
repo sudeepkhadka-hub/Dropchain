@@ -10,13 +10,15 @@ import { FiledropsService } from './filedrops.service';
 import { CreateFileDropDto } from './filedropDTO/filedrop.dto';
 import { Get, Param } from '@nestjs/common';
 
+
+
 @Controller('filedrops')
 export class FiledropsController {
   constructor(private readonly filedropsService: FiledropsService) {}
 
   @Post()
   @UseInterceptors(FileInterceptor('file'))
-  uploadFile(@UploadedFile() file: Express.Multer.File,
+  uploadFile(@UploadedFile() file: Express.Multer.File, 
    @Body() body: CreateFileDropDto,
   ) {
     return this.filedropsService.create(file, body);
@@ -27,5 +29,11 @@ export class FiledropsController {
   getFileDrop(@Param('id') id: string) {
     return this.filedropsService.findOne(id);
   }
+
+
+  @Get()
+  getAll() {
+    return  this.filedropsService.findAll();
+}
 
 }
